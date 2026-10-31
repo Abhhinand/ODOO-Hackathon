@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Zap, ArrowRight, ShieldCheck, User, Users } from 'lucide-react';
+import { Zap, ArrowRight, Lock, Mail } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
@@ -30,25 +30,6 @@ const Login = () => {
     }
   };
 
-  const handleQuickLogin = (demoEmail, demoPassword) => {
-    setEmail(demoEmail);
-    setPassword(demoPassword);
-    setError('');
-    setLoading(true);
-    login(demoEmail, demoPassword)
-      .then((loggedUser) => {
-        if (loggedUser.role === 'customer') {
-          navigate('/portal');
-        } else {
-          navigate('/dashboard');
-        }
-      })
-      .catch((err) => {
-        setError(err.response?.data?.detail || 'Login failed.');
-        setLoading(false);
-      });
-  };
-
   return (
     <div style={{ minHeight: '100vh', display: 'flex', background: 'var(--midnight-ink)', color: '#fff' }}>
       {/* Left Editorial Branding Showcase */}
@@ -56,7 +37,7 @@ const Login = () => {
         <div>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'var(--electric-lime)', color: 'var(--midnight-ink)', padding: '4px 10px', borderRadius: 4, fontFamily: 'var(--font-mono)', fontSize: '0.75rem', fontWeight: 700 }}>
             <Zap size={14} fill="#111A27" />
-            <span>HACKATHON MVP EDITION</span>
+            <span>BRIGHTLOOP PLATFORM</span>
           </div>
           <h1 style={{ color: '#fff', fontSize: '3.6rem', marginTop: 32, lineHeight: 1.05 }}>
             Revenue<br />in Motion.
@@ -66,38 +47,12 @@ const Login = () => {
           </p>
         </div>
 
-        <div>
-          <div className="mono-tag" style={{ color: 'rgba(255,255,255,0.4)', marginBottom: 12 }}>
-            INSTANT EVALUATION LOGINS
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24 }}>
+          <div className="mono-tag" style={{ color: 'var(--electric-lime)', marginBottom: 8 }}>
+            ENTERPRISE SECURITY
           </div>
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm"
-              style={{ background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1px solid rgba(255,255,255,0.15)' }}
-              onClick={() => handleQuickLogin('admin@brightloop.com', 'admin123')}
-            >
-              <ShieldCheck size={14} color="#C5F36A" />
-              <span>Admin Demo</span>
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm"
-              style={{ background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1px solid rgba(255,255,255,0.15)' }}
-              onClick={() => handleQuickLogin('staff@brightloop.com', 'staff123')}
-            >
-              <Users size={14} color="#5376E5" />
-              <span>Staff Demo</span>
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm"
-              style={{ background: 'rgba(255,255,255,0.08)', color: '#fff', border: '1px solid rgba(255,255,255,0.15)' }}
-              onClick={() => handleQuickLogin('acme@brightloop.com', 'customer123')}
-            >
-              <User size={14} color="#E8A45D" />
-              <span>Customer Demo</span>
-            </button>
+          <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', lineHeight: 1.6 }}>
+            Role-based authentication powered by encrypted JWT tokens and bcrypt password security.
           </div>
         </div>
       </div>
@@ -119,28 +74,32 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label className="form-label" style={{ color: 'rgba(255,255,255,0.8)' }}>Email Address</label>
-              <input
-                type="email"
-                className="form-input"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@brightloop.com"
-                style={{ background: 'rgba(255,255,255,0.06)', color: '#fff', borderColor: 'rgba(255,255,255,0.15)' }}
-              />
+              <div style={{ position: 'relative' }}>
+                <input
+                  type="email"
+                  className="form-input"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="name@company.com"
+                  style={{ background: 'rgba(255,255,255,0.06)', color: '#fff', borderColor: 'rgba(255,255,255,0.15)' }}
+                />
+              </div>
             </div>
 
             <div className="form-group" style={{ marginBottom: 28 }}>
               <label className="form-label" style={{ color: 'rgba(255,255,255,0.8)' }}>Password</label>
-              <input
-                type="password"
-                className="form-input"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                style={{ background: 'rgba(255,255,255,0.06)', color: '#fff', borderColor: 'rgba(255,255,255,0.15)' }}
-              />
+              <div style={{ position: 'relative' }}>
+                <input
+                  type="password"
+                  className="form-input"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  style={{ background: 'rgba(255,255,255,0.06)', color: '#fff', borderColor: 'rgba(255,255,255,0.15)' }}
+                />
+              </div>
             </div>
 
             <button
